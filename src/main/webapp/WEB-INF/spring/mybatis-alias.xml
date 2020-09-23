@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+	<!-- user영역 -->
+		<typeAlias type="com.koreait.matzip.user.model.UserVO"
+			alias="UserVO" />
+		<typeAlias type="com.koreait.matzip.user.model.UserDMI"
+			alias="UserDMI" />
+		<typeAlias type="com.koreait.matzip.user.model.UserPARAM"
+			alias="UserPARAM" />
+			<!-- Rest영역 -->
+		<typeAlias type="com.koreait.matzip.rest.model.RestVO"
+			alias="RestVO" />
+		<typeAlias type="com.koreait.matzip.rest.model.RestDMI"
+			alias="RestDMI" />
+		<typeAlias type="com.koreait.matzip.rest.model.RestPARAM"
+			alias="RestPARAM" />
+			<!-- Common 영역 -->
+		<typeAlias type="com.koreait.matzip.model.CodeVO"
+			alias="CodeVO" />
+	</typeAliases>
+</configuration>

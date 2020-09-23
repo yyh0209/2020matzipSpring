@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.koreait.matzip.user.UserMapper">
+	<insert id="insUser" parameterType="UserVO">
+	<!--CRUD 와 el식을 작성할수있다!  
+		id값과 인자값을  UserMapper.java와 동일해야된다. 
+		#: 타입에 맞는 값 $:값을 그대로 넣는다 테이블명을 바꿀때는 #을 쓸수있다,.-->
+		INSERT INTO t_user
+		(user_id, user_pw, salt, nm)
+		VALUES
+		(#{user_id}, #{user_pw}, #{salt}, #{nm})
+	</insert>
+	<insert id="insRestFavorite" parameterType="RestVO">
+	INSERT INTO t_user_favorite
+		(i_rest, i_user, r_dt)
+		VALUES
+		(#{i_rest}, #{i_user}, #{r_dt})
+	</insert>
+	<select id="selUser" parameterType="UserPARAM" resultType="UserDMI">
+		SELECT i_user, user_id, user_pw, salt, nm, profile_img, r_dt
+		FROM t_user
+		WHERE 
+		<if test="i_user > 0">i_user = #{i_user}</if>
+		<if test="user_id != null and user_id != ''">user_id = #{user_id}</if>
+	</select>
+</mapper>
