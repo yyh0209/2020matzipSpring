@@ -6,7 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>${title}</title>
-<link rel="stylesheet" type="text/css" href="/res/css/common.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/res/css/common.css?ewruirutihwt=110">
 <c:forEach items="${css}" var="item">
 	<link rel="stylesheet" type="text/css" href="/res/css/${item}.css">
 </c:forEach>
@@ -16,7 +18,7 @@
 		<header>
 			<div id="headerLeft">
 				<c:if test="${loginUser != null}">
-					<div id="containerPImg">
+					<div class="containerPImg">
 						<c:choose>
 							<c:when test="${loginUser.profile_img != null}">
 								<!-- res는  resource-->
@@ -44,7 +46,7 @@
 				<c:if test="${loginUser == null}">
 				<a class="ml15" href="#" onclick="alert('로그인이 필요합니다.')">등록</a>
 				</c:if>
-				<a class="ml15" href="/user/restFavorite">찜</a>
+				<a class="ml15" href="/user/favorite">찜</a>
 				<!-- 찜의 경로  -->
 			</div>
 		</header>

@@ -15,15 +15,17 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter {
 		//model modelandview는 차이가 있다. 스트링값을 모델엔뷰로 담아줘서 처리하고 jsp로 간다.
 		String uri = request.getRequestURI();
 		String[] uriArr = uri.split("/");// 문자열로 경로를 나눈다
+	
 		System.out.println("인터셉터!");
 		System.out.println("uri :"+uri);
-		if(uriArr[1].equals("res")){ //리소스가 (js,css,img)
-			return true; //배열엔 local은 0/user는 2/login은 3차 주소값으로 나눈다./
-		}else if (uriArr.length < 3) { // 주소가 이상하다.
-			return false; //주소가 3차가 아닌이상 실패
+		
+		if(uri.equals("/")) {
+			return true;
+		}else if(uriArr[1].equals("res")) {
+			return true;
 		}
-
 		HttpSession hs = request.getSession(); // 로그인 세션을
+		System.out.println("인터셉터");
 		boolean isLogout = SecurityUtils.isLogout(request); 
 		
 		switch (uriArr[1]) {

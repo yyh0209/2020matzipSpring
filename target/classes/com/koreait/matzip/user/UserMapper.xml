@@ -2,25 +2,44 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.koreait.matzip.user.UserMapper">
 	<insert id="insUser" parameterType="UserVO">
-	<!--CRUD 와 el식을 작성할수있다!  
-		id값과 인자값을  UserMapper.java와 동일해야된다. 
-		#: 타입에 맞는 값 $:값을 그대로 넣는다 테이블명을 바꿀때는 #을 쓸수있다,.-->
 		INSERT INTO t_user
-		(user_id, user_pw, salt, nm)
+		(user_id,
+		user_pw, salt, nm)
 		VALUES
 		(#{user_id}, #{user_pw}, #{salt}, #{nm})
 	</insert>
-	<insert id="insRestFavorite" parameterType="RestVO">
-	INSERT INTO t_user_favorite
-		(i_rest, i_user, r_dt)
+	<insert id="insFavorite" parameterType="UserPARAM">
+		INSERT INTO
+		t_user_favorite
+		(i_rest, i_user)
 		VALUES
-		(#{i_rest}, #{i_user}, #{r_dt})
+		(#{i_rest}, #{i_user})
 	</insert>
-	<select id="selUser" parameterType="UserPARAM" resultType="UserDMI">
+
+	<select id="selUser" parameterType="UserPARAM"
+		resultType="UserDMI">
 		SELECT i_user, user_id, user_pw, salt, nm, profile_img, r_dt
-		FROM t_user
-		WHERE 
-		<if test="i_user > 0">i_user = #{i_user}</if>
-		<if test="user_id != null and user_id != ''">user_id = #{user_id}</if>
+		FROM
+		t_user
+		WHERE
+		<if test="i_user > 0"> i_user = #{i_user}</if>
+		<if test="user_id != null and user_id != ''"> user_id = #{user_id}</if>
 	</select>
+	<select id="selFavoriteList" parameterType="UserPARAM"
+		resultType="UserDMI">
+	SELECT A.i_rest,A.i_user,A.r_dt
+		,B.nm AS rest_nm
+		,B.addr AS rest_addr
+	FROM t_user_favorite A
+	INNER JOIN t_restaurant B
+	ON A.i_rest = B.i_rest
+	WHERE A.i_user = #{i_user};
+	</select>
+	<delete id="delFavorite" parameterType="UserPARAM">
+		DELETE FROM
+		t_user_favorite
+		WHERE i_rest = #{i_rest}
+		AND i_user = #{i_user}
+	</delete>
+
 </mapper>

@@ -3,8 +3,18 @@ package com.koreait.matzip.rest.model;
 public class RestDMI extends RestVO {
 	private String cd_category_nm;
 	private String user_nm;
-	private int cnt_favorite;
 	private int cntHits;
+	private int cnt_favorite; //좋아요를 누른 가게
+	private int is_favorite; //내가 좋아요한 수
+	
+	
+	public int getIs_favorite() {
+		return is_favorite;
+	}
+
+	public void setIs_favorite(int is_favorite) {
+		this.is_favorite = is_favorite;
+	}
 
 	public int getCntHits() {
 		return cntHits;

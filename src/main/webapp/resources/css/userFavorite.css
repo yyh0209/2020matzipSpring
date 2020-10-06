@@ -1,0 +1,90 @@
+@charset "UTF-8";
+
+.container {
+	width: 1000px;	
+	margin: 0 auto;
+	position: relative;
+}
+
+.f-item:not(:first-child) {	
+	border-top: 1px solid #dbdbdb;
+}
+
+.f-item {
+	padding: 30px 0;
+	width: 100%;
+	height: 300px;	
+	display: flex;
+}
+
+.f-item .img {
+	width: 300px;
+	overflow-x:hidden;
+}
+
+.f-item .img img {
+	width: 100%;
+	overflow: hidden;
+}
+
+.f-item .ctnt {
+	flex-grow: 1;	
+	display: flex;
+	flex-direction: column;
+}
+
+.f-item .ctnt .top {
+	height: 100px;
+	display: flex;
+	padding: 5px 5px 5px 30px;
+}
+
+.f-item .ctnt .bottom {
+	flex-grow: 1;	
+}
+
+.f-item .ctnt .top .f-title {
+	flex-grow: 1;
+}
+
+.f-item .ctnt .top .f-title .nm {
+	font-size: 2rem;
+	color: #555;
+}
+
+.f-item .ctnt .top .f-title .addr {
+	font-size: 0.9rem;
+	color: #9b9b9b;
+}
+
+.f-item .ctnt .top .f-fav {
+	width: 100px;
+	text-align: right;
+	
+}
+
+.f-item .ctnt .top .f-fav .material-icons {
+	font-size: 2rem;
+}
+
+.f-item .ctnt .bottom {
+	overflow-x: hidden;
+	display: flex;
+	margin-left: 30px;
+}
+
+.f-item .ctnt .bottom .recMenuItem {
+	width: 110px;
+}
+
+.f-item .ctnt .bottom .recMenuItem:not(:first-child) {
+	margin-left: 3px;
+}
+
+.f-item .ctnt .bottom .recMenuItem .pic {
+	width: 100%;
+}
+
+.f-item .ctnt .bottom .recMenuItem img {
+	width: 100%;
+}	

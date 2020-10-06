@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.koreait.matzip.Const;
+import com.koreait.matzip.SecurityUtils;
 import com.koreait.matzip.ViewRef;
 import com.koreait.matzip.user.model.UserPARAM;
 import com.koreait.matzip.user.model.UserVO;
@@ -53,7 +54,7 @@ public class UserController {
 			// 1이 넘어왔을때 jsp의 속성값에 저장함. userDTO를 인자로 받음.
 			hs.setAttribute(Const.LOGIN_USER, param);
 			// 주소값을 저장해서 접근함.
-			return "redirect:/rest/map";
+			return "redirect:/";
 			//로그인에 성공했으면 로그인 정보를 속성값에 설정하고 해당 주소값으로 전달한다.
 		}
 		String msg = null;
@@ -89,17 +90,13 @@ public class UserController {
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
 	//파일여는것
 	public String join(UserVO param, RedirectAttributes ra) {
-		
 		int result = service.join(param);
-
 		if (result == 1) {
 			return "redirect:/user/login";
 		}
 		ra.addAttribute("err" + result);
 		return "redirect:/user/join";
 	}
-		//addAttribute 쿼리스트링
-		//addFlashAttribute는 세션에 받았다가 응답할때 지운다.
 	@RequestMapping(value="/ajaxIdChk",method=RequestMethod.POST)
 	@ResponseBody public String ajaxIdChk(@RequestBody UserPARAM param) {
 		int result = service.login(param);
@@ -107,11 +104,35 @@ public class UserController {
 		//파일명을 안쓰고 이거 자체를 반환. 파일자체를 응답.
 		//redirect가 안붙여있으니 문자열, jsp파일
 		//아이디 없음:2번이 넘어와야 한다.
-		
-
 		//객체리턴을 하려면 ResponseBody 가 필요하다. 
 		//결과물 Response의 몸. jsp파일을 찾는게 아니라 그 자체가 응답임.
 		//vue.js,react.js는 전부 ResponseBody를 쓴다
 		//첫페이지는 html을 요구하고 그 다음엔 데이터를 요구함.
+		//값이 있으면 delete 없으면 insert
+		//하트는 지움 하트가 없으면 insert
 	}
+	@RequestMapping(value="/ajaxToggleFavorite", method=RequestMethod.GET)
+	@ResponseBody
+	public int ajaxToggleFavorite(UserPARAM param, HttpSession hs) {
+		System.out.println("==> ajaxToggleFavorite");
+		int i_user = SecurityUtils.getLoginUserPk(hs);
+		
+		param.setI_user(i_user);
+		return service.ajaxToggleFavorite(param);
+	}
+	//찜 담당 jsp로 보낼것.
+	@RequestMapping("/favorite")
+	public String restFavorite(Model model,HttpSession hs) {
+		int i_user = SecurityUtils.getLoginUserPk(hs); //전달하기 위한것.
+		UserPARAM param = new UserPARAM(); //주소값을 sel에다 보내주고
+		param.setI_user(i_user);
+		//로그인 한사람의 찜 리스트를 받아야된다.
+		model.addAttribute("data",service.selFavoriteList(param));
+		
+		model.addAttribute(Const.CSS,new String[] {"userFavorite"});
+		model.addAttribute(Const.TITLE,"찜");
+		model.addAttribute(Const.VIEW,"user/favorite");
+		return ViewRef.TEMP_MENU_TEMP;
+	}
+	
 }

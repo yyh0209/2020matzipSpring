@@ -1,11 +1,25 @@
 package com.koreait.matzip.rest.model;
 
 public class RestPARAM extends RestVO{
-	private double sw_lat;
-	private double sw_lng;
+	private double sw_lat; //기준좌표  X
+	private double sw_lng; //기준좌표 Y
 	private double ne_lat;
 	private double ne_lng;
+	private int seq;
+	private String menu_pic;
 	
+	public String getMenu_pic() {
+		return menu_pic;
+	}
+	public void setMenu_pic(String menu_pic) {
+		this.menu_pic = menu_pic;
+	}
+	public int getSeq() {
+		return seq;
+	}
+	public void setSeq(int seq) {
+		this.seq = seq;
+	}
 	public double getSw_lat() {
 		return sw_lat;
 	}

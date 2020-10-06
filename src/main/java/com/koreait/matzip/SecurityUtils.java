@@ -15,16 +15,17 @@ public class SecurityUtils {
 
 	// boolean타입엔 반드시 is를 붙인다.
 	public static int getLoginUserPk(HttpServletRequest request) {
-		return getLoginUser(request).getI_user();
+		return getLoginUserPk (request.getSession()); //바로밑의 함수한테 가져감.
 		//로그인한 사람의 pk값.
 	}
 	public static int getLoginUserPk(HttpSession hs) {
-		return ((UserVO)hs.getAttribute(Const.LOGIN_USER)).getI_user();
+		UserVO loginUser = (UserVO)hs.getAttribute(Const.LOGIN_USER);
+		return loginUser == null ? 0 : loginUser.getI_user();
 		//로그인한 사람의 pk값.
 	}
 
 	public static UserVO getLoginUser(HttpServletRequest request) {
-		HttpSession hs = request.getSession();
+		HttpSession hs = request.getSession(); //세션이 로그인한사람에게 접근 권한을 준다.
 		return (UserVO) hs.getAttribute(Const.LOGIN_USER);
 		//로그인해서 들어온 사람들이 할수있는 모든것을 지원.
 	}
